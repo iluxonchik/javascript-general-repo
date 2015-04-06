@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="demoApp">
+
+<head>
+	<title>Using AngularJS Directives and Data Binding</title>
+</head>
+
+<body>
+	<div>
+	<!-- Placeholder For Views -->
+		<div ng-view>
+			
+		</div>		
+	</div>
+	<script type="text/javascript" src="angular.min.js"> </script>
+	<script type="text/javascript" src="angular-route.js"> </script>
+
+
+		<script>
+		// Second parameter '[]' means this module has no dependencies
+		var demoApp = angular.module('demoApp', ['ngRoute']);
+
+		demoApp.config(function ($routeProvider) {
+			$routeProvider
+			.when('/',
+			{
+				controller: 'SimpleController',
+				templateUrl: 'Partials/View1.html'
+			})
+			.when ('/partial2',
+			{
+				controller: 'SimpleController',
+				templateUrl: 'Partials/View2.html'
+
+			})
+			.otherwise({ redirectTo: '/'});
+		});
+
+		demoApp.controller('SimpleController', function ($scope) {
+			$scope.customers = [
+				{name:'John Terry',city:'London'}, 
+				{name:'Frank Lampard',city:'Manchester'}, 
+				{name:'Didier Drogba',city:'London'}
+			];
+
+			$scope.addCustomer = function() {
+				$scope.customers.push( 
+					{
+						name: $scope.newCostumer.name, 
+						city: $scope.newCostumer.city
+					});
+			};
+		});
+
+		</script>
+</body>
+
+</html>
